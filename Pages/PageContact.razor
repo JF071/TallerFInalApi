@@ -1,0 +1,70 @@
+@page "/PageContact"
+
+<div class="container">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+    <form  @onsubmit="Sumit">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+            <input @bind="Nombre" class="form-control" id="exampleFormControlInput1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input @bind="CorreoElectronico" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Telefono</label>
+            <input @bind="Telefono" class="form-control" id="exampleFormControlInput1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Mensaje</label>
+            <textarea @bind="Mensaje" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+            <button class="btn btn-primary">Enviar</button>
+    </form>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+
+    <div class="row py-4">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="card text-bg-primary mb-3" style="max-width: 50rem;">
+                @if(show){
+                <div class="card-header">Formato</div>
+                <div class="card-body">
+                    <h5 class="card-title">Hola soy :@Nombre</h5>
+                    <p class="card-text">Quiero Contactarme con ustedes por lo siguiente: @Mensaje</p>
+                    <p class="card-text">Pueden Comunicarse conmigo en : </p>
+                        <p> Correo Electronico:@CorreoElectronico </p>
+                        <p> Telefono:@Telefono</p>
+                        
+                </div>
+                }
+               
+            </div>
+        </div>
+        <div class="col-4"></div>
+   
+    </div>
+
+
+
+
+@code {
+    private string? Nombre {get;set;}
+    private string? CorreoElectronico {get;set;}
+    private string? Telefono {get;set;}
+    private string? Mensaje {get;set;}
+    private bool show = false;
+
+    public void Sumit(){
+      if(this.Nombre !="" && this.CorreoElectronico !=""){
+        this.show=true;
+      }
+    }
+    
+}

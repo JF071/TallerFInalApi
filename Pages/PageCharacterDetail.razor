@@ -1,0 +1,63 @@
+@page "/character/details/{Id:int}"
+
+@inject HttpClient httpClient
+
+@if(character?.id != null){
+
+<div class="row py-4">
+    <div class="col-5"></div>
+    <div class="col-2">
+        <div class="container">
+                    <div class="px 4">
+                        <div class="card zoom" style="width: 25rem;">
+                        <img src="@character.image" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">@character.name</h5>
+                                <p class="card-text">@character.status</p>
+                                <p class="card-text">@character.location.name</p>
+                                <p class="card-text">@character.gender</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+    </div>
+    <div class="col-0"></div>
+
+</div>
+  
+
+}
+
+ @code{
+  
+        [Parameter]
+        public int Id { get; set; }
+
+        
+
+        protected override async Task OnInitializedAsync(){
+        character = await httpClient.GetFromJsonAsync<Character>($"https://rickandmortyapi.com/api/character/{Id}") ?? new Character();
+        }
+
+
+        public class Character
+        {
+            public int? id { get; set; }
+            public string? name { get; set; }
+            public string? status { get; set; }
+
+            public Location? location {get; set;}
+            public string? gender { get; set; }
+            public string? image { get; set; }
+        }  
+        private Character character = new Character();
+
+        public class Location{
+            public string? name {get; set;}
+            public string? url {get; set;}
+            }
+ }
+ 
+
+        
+   
